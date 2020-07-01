@@ -8,6 +8,9 @@
         <hr />
         <app-counter></app-counter>
         <app-another-counter></app-another-counter>
+        <hr />
+        <input type="text" v-model="value" />
+        <p>{{ value }}</p>
       </div>
     </div>
   </div>
@@ -25,6 +28,22 @@ export default {
     appResult: Result,
     appAnotherResult: AnotherResult,
     appAnotherCounter: AnotherCounter
+  },
+  methods: {
+    updateValue(event) {
+      this.$store.dispatch("updateValue", event.target.value);
+    }
+  },
+  computed: {
+    //explanation 276. Two-way binding (v-model) and Vuex
+    value: {
+      get() {
+        return this.$store.getters.value;
+      },
+      set(value) {
+        this.$store.dispatch("updateValue", value);
+      }
+    }
   }
 };
 </script>
